@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity Engineering Portfolio | Class of 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for crisp tech icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        cyber: {
+                            dark: '#080C14',
+                            card: '#0F172A',
+                            border: '#1E293B',
+                            emerald: '#10B981',
+                            cyan: '#06B6D4',
+                            red: '#EF4444',
+                            amber: '#F59E0B'
+                        }
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        glow: {
+                            '0%': { boxShadow: '0 0 5px rgba(16, 185, 129, 0.2), 0 0 10px rgba(16, 185, 129, 0.1)' },
+                            '100%': { boxShadow: '0 0 15px rgba(16, 185, 129, 0.5), 0 0 25px rgba(6, 182, 212, 0.3)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #080C14;
+            color: #E2E8F0;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+                linear-gradient(to right, rgba(30, 41, 59, 0.2) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(30, 41, 59, 0.2) 1px, transparent 1px);
+            background-size: 100% 100%, 40px 40px, 40px 40px;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #080C14;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1E293B;
+            border-radius: 4px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #10B981;
+        }
+
+        .terminal-shadow {
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8), 0 0 15px rgba(16, 185, 129, 0.15);
+        }
+
+        .card-glow:hover {
+            box-shadow: 0 0 20px -5px rgba(16, 185, 129, 0.25);
+            border-color: rgba(16, 185, 129, 0.4);
+        }
+
+        .scanline {
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0, 0, 0, 0.3) 50%,
+                rgba(0, 0, 0, 0.3)
+            );
+            background-size: 100% 4px;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-emerald-500/30 selection:text-emerald-400">
+
+    <header class="sticky top-0 z-40 w-full backdrop-blur-md bg-cyber-dark/80 border-b border-cyber-border/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="#hero" class="flex items-center space-x-2 group">
+                <span class="text-cyber-emerald font-mono font-bold text-xl group-hover:text-cyber-cyan transition-colors">&gt;_</span>
+                <span class="font-mono font-bold text-slate-100 tracking-wider text-sm sm:text-base">SEC_ENG<span class="text-cyber-emerald">.v5</span></span>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-mono">
+                <a href="#terminal" class="text-slate-400 hover:text-cyber-emerald transition-colors"><span class="text-cyber-emerald">01.</span> CLI_Shell</a>
+                <a href="#bento" class="text-slate-400 hover:text-cyber-emerald transition-colors"><span class="text-cyber-emerald">02.</span> Bento_Grid</a>
+                <a href="#lab" class="text-slate-400 hover:text-cyber-emerald transition-colors"><span class="text-cyber-emerald">03.</span> Homelab</a>
+                <a href="#writeups" class="text-slate-400 hover:text-cyber-emerald transition-colors"><span class="text-cyber-emerald">04.</span> CTFs_&_CVEs</a>
+                <a href="#contact" class="text-slate-400 hover:text-cyber-emerald transition-colors"><span class="text-cyber-emerald">05.</span> Contact</a>
+            </nav>
+
+            <!-- Status Indicator & CTA -->
+            <div class="flex items-center space-x-3">
+                <div class="hidden sm:flex items-center space-x-2 bg-emerald-950/40 border border-emerald-500/30 rounded-full px-3 py-1 text-xs text-emerald-400 font-mono">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span>Class of 2026 | Seeking Hire</span>
+                </div>
+                <button onclick="openPGPModal()" class="px-3 py-1.5 text-xs font-mono rounded bg-cyber-card border border-cyber-border text-slate-300 hover:text-cyber-emerald hover:border-cyber-emerald/50 transition-all">
+                    <i class="fa-solid fa-key mr-1 text-cyber-cyan"></i> PGP Key
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+
+        <section id="hero" class="pt-6 pb-4">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Left Editorial Text -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="inline-flex items-center space-x-2 text-xs font-mono text-cyber-cyan bg-cyan-950/30 border border-cyan-500/30 px-3 py-1.5 rounded-full">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span>5th-Year Cybersecurity Engineering Student</span>
+                    </div>
+                    
+                    <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-100 tracking-tight leading-tight">
+                        Securing Infrastructure.<br/>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400">
+                            Breaking Vulnerabilities.
+                        </span>
+                    </h1>
+
+                    <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+                        Specializing in Penetration Testing, Cloud Security, and Infrastructure Hardening. Bridging theoretical engineering precision with offensive cyber research.
+                    </p>
+
+                    <div class="flex flex-wrap gap-3 pt-2">
+                        <a href="#bento" class="px-5 py-2.5 rounded bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-mono font-semibold text-sm transition-all shadow-lg shadow-emerald-500/20 flex items-center gap-2">
+                            <span>Explore Research</span>
+                            <i class="fa-solid fa-arrow-down text-xs"></i>
+                        </a>
+                        <a href="mailto:alex.cybersec@example.com" class="px-5 py-2.5 rounded bg-cyber-card hover:bg-slate-800 text-slate-200 border border-cyber-border font-mono text-sm transition-all flex items-center gap-2">
+                            <i class="fa-solid fa-paper-plane text-cyber-cyan text-xs"></i>
+                            <span>Get in Touch</span>
+                        </a>
+                    </div>
+
+                    <!-- Quick Metrics Banner -->
+                    <div class="grid grid-cols-3 gap-2 pt-4 border-t border-cyber-border/60">
+                        <div>
+                            <div class="text-xl font-mono font-bold text-cyber-emerald">Top 1%</div>
+                            <div class="text-xs text-slate-500 font-mono">TryHackMe Rank</div>
+                        </div>
+                        <div>
+                            <div class="text-xl font-mono font-bold text-cyber-cyan">14+</div>
+                            <div class="text-xs text-slate-500 font-mono">CVE & CTF Solves</div>
+                        </div>
+                        <div>
+                            <div class="text-xl font-mono font-bold text-emerald-400">Sec+ / CEH</div>
+                            <div class="text-xs text-slate-500 font-mono">Certifications</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Interactive Terminal Widget -->
+                <div id="terminal" class="lg:col-span-7">
+                    <div class="terminal-shadow rounded-lg bg-slate-950 border border-cyber-border overflow-hidden relative">
+                        <!-- Terminal Header -->
+                        <div class="bg-slate-900/90 px-4 py-2.5 border-b border-cyber-border flex items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+                                <span class="w-3 h-3 rounded-full bg-amber-500/80 inline-block"></span>
+                                <span class="w-3 h-3 rounded-full bg-emerald-500/80 inline-block"></span>
+                                <span class="ml-2 text-xs font-mono text-slate-400">student@sec-workstation:~</span>
+                            </div>
+                            <div class="text-xs font-mono text-slate-500 flex items-center gap-2">
+                                <i class="fa-solid fa-terminal text-cyber-emerald"></i>
+                                <span>zsh v5.9</span>
+                            </div>
+                        </div>
+
+                        <!-- Terminal Body -->
+                        <div id="terminal-body" class="p-4 font-mono text-xs sm:text-sm h-80 sm:h-96 overflow-y-auto space-y-3 bg-slate-950/90 leading-relaxed scroll-smooth">
+                            <div class="text-slate-500">
+                                Global Cybersecurity Shell [Version 5.0.26]<br/>
+                                Type <span class="text-cyber-cyan font-bold">'help'</span> to view available security modules & commands.
+                            </div>
+                            
+                            <div class="text-emerald-400">
+                                [SYS_INFO] Session initialized with 256-bit AES protection.
+                            </div>
+
+                            <div id="terminal-output" class="space-y-3">
+                                <!-- Dynamic commands append here -->
+                            </div>
+
+                            <!-- Input Line -->
+                            <form id="terminal-form" class="flex items-center space-x-2 pt-2" onsubmit="handleCommand(event)">
+                                <span class="text-cyber-emerald font-bold">&gt;</span>
+                                <input type="text" id="terminal-input" autocomplete="off" class="flex-1 bg-transparent text-slate-100 focus:outline-none font-mono text-xs sm:text-sm placeholder-slate-600" placeholder="type 'help' or 'whoami'..." />
+                                <button type="submit" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-2 py-1 rounded border border-slate-700">Exec</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="bento" class="space-y-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-2 border-b border-cyber-border pb-4">
+                <div>
+                    <span class="text-xs font-mono text-cyber-emerald uppercase tracking-wider">// CORE ARCHITECTURE</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-100">Bento Grid Showcase</h2>
+                </div>
+                <p class="text-xs sm:text-sm font-mono text-slate-400">Click elements to inspect technical writeups and configurations.</p>
+            </div>
+
+            <!-- Bento Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                
+                <!-- Card 1: Degree & Academic Status (2 cols) -->
+                <div class="md:col-span-2 bg-cyber-card border border-cyber-border rounded-xl p-6 card-glow transition-all flex flex-col justify-between relative overflow-hidden group">
+                    <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-emerald-500/5 rounded-full blur-2xl group-hover:bg-emerald-500/10 transition-all"></div>
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="px-2.5 py-1 text-xs font-mono rounded bg-emerald-950/60 text-emerald-400 border border-emerald-500/30">
+                                Engineering Degree Status
+                            </span>
+                            <i class="fa-solid fa-graduation-cap text-2xl text-cyber-emerald"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-100">M.S. / B.S. Cybersecurity Engineering</h3>
+                        <p class="text-slate-400 text-sm mt-1">Year 5 of 5 • Graduating June 2026</p>
+                        <p class="text-xs text-slate-400 mt-3 leading-relaxed">
+                            Focus Areas: Cryptography, Reverse Engineering, Secure Software Lifecycle (DevSecOps), Penetration Testing, and Distributed Systems Security.
+                        </p>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-cyber-border/60 flex flex-wrap gap-2 text-xs font-mono">
+                        <span class="bg-slate-800 text-slate-300 px-2 py-1 rounded">GPA: 3.85/4.0</span>
+                        <span class="bg-slate-800 text-slate-300 px-2 py-1 rounded">Thesis: Zero-Trust Mesh Architectures</span>
+                    </div>
+                </div>
+
+                <!-- Card 2: Certifications Showcase (1 col) -->
+                <div class="bg-cyber-card border border-cyber-border rounded-xl p-6 card-glow transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs font-mono text-cyber-cyan">VERIFIED</span>
+                            <i class="fa-solid fa-certificate text-xl text-cyber-cyan"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-100">Certifications</h3>
+                        <ul class="mt-3 space-y-2.5 text-xs font-mono">
+                            <li class="flex items-center justify-between text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800">
+                                <span>CompTIA Security+</span>
+                                <i class="fa-solid fa-check text-cyber-emerald"></i>
+                            </li>
+                            <li class="flex items-center justify-between text-slate-300 bg-slate-900/60 p-2 rounded border border-slate-800">
+                                <span>Certified Ethical Hacker (CEH)</span>
+                                <i class="fa-solid fa-check text-cyber-emerald"></i>
+                            </li>
+                            <li class="flex items-center justify-between text-slate-400 bg-slate-900/30 p-2 rounded border border-slate-800/50">
+                                <span>eJPT (In Progress)</span>
+                                <span class="text-amber-400 text-[10px]">90%</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mt-4 text-[11px] font-mono text-slate-500">Credly IDs attached upon request.</div>
+                </div>
+
+                <!-- Card 3: GitHub Custom Security Tooling (1 col) -->
+                <div class="bg-cyber-card border border-cyber-border rounded-xl p-6 card-glow transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs font-mono text-amber-400">OPEN SOURCE</span>
+                            <i class="fa-brands fa-github text-xl text-slate-300"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-100">PySubAudit v2.1</h3>
+                        <p class="text-xs text-slate-400 mt-2">
+                            Automated asynchronous subdomain enumeration & HTTP header security scanner written in Python/Asyncio.
+                        </p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-cyber-border/60 flex items-center justify-between text-xs font-mono">
+                        <span class="text-slate-400"><i class="fa-solid fa-star text-amber-400 mr-1"></i>148 stars</span>
+                        <a href="https://github.com" target="_blank" class="text-cyber-emerald hover:underline">View Repo &rarr;</a>
+                    </div>
+                </div>
+
+                <!-- Card 4: Homelab Infrastructure (2 cols) -->
+                <div id="lab" class="md:col-span-2 bg-cyber-card border border-cyber-border rounded-xl p-6 card-glow transition-all">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center space-x-2">
+                            <i class="fa-solid fa-server text-cyber-emerald"></i>
+                            <h3 class="text-lg font-bold text-slate-100">Enterprise Homelab Setup</h3>
+                        </div>
+                        <span class="text-xs font-mono text-cyber-emerald bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-500/20">Active Node Matrix</span>
+                    </div>
+                    <p class="text-xs text-slate-400 mb-4">
+                        Custom hardware lab simulating enterprise Active Directory environment, SIEM log ingestion (Elastic Stack), and OPNSense firewall routing.
+                    </p>
+                    
+                    <!-- Interactive Architecture Nodes -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-mono">
+                        <div class="p-2.5 rounded bg-slate-900 border border-slate-800 text-center hover:border-cyber-emerald/50 transition-colors cursor-pointer" onclick="openModal('Proxmox VE Cluster', 'Runs 12 VMs including Windows Server AD Domain Controller, Vulnerable Linux targets, and Docker containers for monitoring tools.')">
+                            <div class="text-slate-200 font-semibold">Proxmox VE</div>
+                            <div class="text-[10px] text-cyber-emerald mt-1">128GB RAM Node</div>
+                        </div>
+                        <div class="p-2.5 rounded bg-slate-900 border border-slate-800 text-center hover:border-cyber-emerald/50 transition-colors cursor-pointer" onclick="openModal('Elastic SIEM', 'Configured Winlogbeat and Sysmon telemetry pipeline forwarding 500k+ daily security events for threat hunting rules detection.')">
+                            <div class="text-slate-200 font-semibold">Elastic SIEM</div>
+                            <div class="text-[10px] text-cyber-cyan mt-1">Sysmon Pipeline</div>
+                        </div>
+                        <div class="p-2.5 rounded bg-slate-900 border border-slate-800 text-center hover:border-cyber-emerald/50 transition-colors cursor-pointer" onclick="openModal('Active Directory Forest', 'Configured GPOs, Kerberos delegation scenarios, and LAPS for testing offensive BloodHound path discovery.')">
+                            <div class="text-slate-200 font-semibold">Windows AD</div>
+                            <div class="text-[10px] text-amber-400 mt-1">Forest Lab</div>
+                        </div>
+                        <div class="p-2.5 rounded bg-slate-900 border border-slate-800 text-center hover:border-cyber-emerald/50 transition-colors cursor-pointer" onclick="openModal('OPNsense Firewall', 'Multi-VLAN segmented lab separating malware analysis sandbox from corporate DC targets.')">
+                            <div class="text-slate-200 font-semibold">OPNsense</div>
+                            <div class="text-[10px] text-slate-400 mt-1">VLAN Segmented</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5: Threat Intelligence & Skills Matrix (2 cols) -->
+                <div class="md:col-span-2 bg-cyber-card border border-cyber-border rounded-xl p-6 card-glow transition-all">
+                    <h3 class="text-lg font-bold text-slate-100 mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-microchip text-cyber-cyan"></i>
+                        Primary Technical Competencies
+                    </h3>
+                    <div class="grid grid-cols-2 gap-3 text-xs font-mono">
+                        <div>
+                            <div class="text-slate-400 mb-1">Offensive Security</div>
+                            <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-slate-800">
+                                <div class="bg-cyber-emerald h-full" style="width: 88%"></div>
+                            </div>
+                            <div class="text-[10px] text-slate-500 mt-1">Burp Suite, Metasploit, BloodHound, Nmap</div>
+                        </div>
+                        <div>
+                            <div class="text-slate-400 mb-1">Defensive Security / Blue</div>
+                            <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-slate-800">
+                                <div class="bg-cyber-cyan h-full" style="width: 82%"></div>
+                            </div>
+                            <div class="text-[10px] text-slate-500 mt-1">Splunk, Elastic SIEM, Wireshark, YARA</div>
+                        </div>
+                        <div>
+                            <div class="text-slate-400 mb-1">Languages & Scripting</div>
+                            <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-slate-800">
+                                <div class="bg-amber-400 h-full" style="width: 90%"></div>
+                            </div>
+                            <div class="text-[10px] text-slate-500 mt-1">Python, Bash, C/C++, Go, SQL</div>
+                        </div>
+                        <div>
+                            <div class="text-slate-400 mb-1">Cloud & Infrastructure</div>
+                            <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-slate-800">
+                                <div class="bg-emerald-400 h-full" style="width: 78%"></div>
+                            </div>
+                            <div class="text-[10px] text-slate-500 mt-1">AWS IAM, Docker, Terraform, Linux/Unix</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="writeups" class="space-y-6 pt-4">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-2 border-b border-cyber-border pb-4">
+                <div>
+                    <span class="text-xs font-mono text-cyber-cyan uppercase tracking-wider">// OFFENSIVE RESEARCH</span>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-100">CTF Writeups & Vulnerability Research</h2>
+                </div>
+                <div class="text-xs font-mono text-slate-400">CVSS Classified Findings & Labs</div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                
+                <!-- Research Card 1 -->
+                <div class="bg-cyber-card border border-cyber-border rounded-xl p-5 hover:border-cyber-emerald/50 transition-all flex flex-col justify-between group">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-red-950/80 text-red-400 border border-red-800/50 text-[11px] font-mono px-2 py-0.5 rounded font-bold">
+                                CVSS 9.8 • CRITICAL
+                            </span>
+                            <span class="text-xs font-mono text-slate-500">HTB Machine</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-100 group-hover:text-cyber-emerald transition-colors">
+                            Remote Code Execution via Misconfigured RMI Registry
+                        </h3>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Exploited Java RMI registry deserialization weakness to establish initial reverse shell, followed by kernel privilege escalation.
+                        </p>
+                    </div>
+                    <button onclick="openWriteupModal('Java RMI RCE - HackTheBox Machine', 'Detailed attack path:\n1. Initial Nmap scan revealed port 1099 open.\n2. Used ysoserial tool to craft payloads for deserialization vulnerability.\n3. Obtained low-privilege www-data shell.\n4. Escalated privileges via SUID binary misconfiguration in custom C application.')" class="mt-4 w-full py-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-mono text-slate-300 rounded transition-colors flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-file-lines text-cyber-emerald"></i>
+                        <span>Read Attack Writeup</span>
+                    </button>
+                </div>
+
+                <!-- Research Card 2 -->
+                <div class="bg-cyber-card border border-cyber-border rounded-xl p-5 hover:border-cyber-emerald/50 transition-all flex flex-col justify-between group">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-amber-950/80 text-amber-400 border border-amber-800/50 text-[11px] font-mono px-2 py-0.5 rounded font-bold">
+                                CVSS 7.5 • HIGH
+                            </span>
+                            <span class="text-xs font-mono text-slate-500">Lab Research</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-100 group-hover:text-cyber-cyan transition-colors">
+                            Active Directory Kerberoasting & DCSync Simulation
+                        </h3>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Simulated internal network compromise by extracting SPN service account tickets and cracking them using hashcat with custom masks.
+                        </p>
+                    </div>
+                    <button onclick="openWriteupModal('Active Directory Kerberoasting', 'Execution Phase:\n1. Used Impacket GetUserSPNs.py against test domain controller.\n2. Cracked TGS ticket hash using hashcat with rockyou.txt + mask rules.\n3. Exploited DCSync rights assigned to service account using secretsdump.py to pull domain hashes.')" class="mt-4 w-full py-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-mono text-slate-300 rounded transition-colors flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-file-lines text-cyber-cyan"></i>
+                        <span>Read Attack Writeup</span>
+                    </button>
+                </div>
+
+                <!-- Research Card 3 -->
+                <div class="bg-cyber-card border border-cyber-border rounded-xl p-5 hover:border-cyber-emerald/50 transition-all flex flex-col justify-between group">
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="bg-emerald-950/80 text-emerald-400 border border-emerald-800/50 text-[11px] font-mono px-2 py-0.5 rounded font-bold">
+                                TOOL DEVELOPED
+                            </span>
+                            <span class="text-xs font-mono text-slate-500">Python Script</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-100 group-hover:text-emerald-400 transition-colors">
+                            Automated JWT Signature Forgery Module
+                        </h3>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Python CLI tool to automatically test for JWT implementation flaws (e.g., 'none' algorithm bypass and key confusion attacks).
+                        </p>
+                    </div>
+                    <button onclick="openWriteupModal('Automated JWT Vulnerability Scanner', 'Module Details:\nWritten in Python 3.11 using PyJWT library.\nChecks for:\n- Algorithm None vulnerability\n- HMAC vs RSA signature confusion\n- Weak secret key brute-forcing with custom dictionary files.')" class="mt-4 w-full py-2 bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-mono text-slate-300 rounded transition-colors flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-file-lines text-emerald-400"></i>
+                        <span>Read Attack Writeup</span>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="contact" class="bg-cyber-card border border-cyber-border rounded-2xl p-6 sm:p-10 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-7 space-y-4">
+                    <span class="text-xs font-mono text-cyber-emerald uppercase tracking-wider">// SECURE COMMUNICATION</span>
+                    <h2 class="text-3xl font-extrabold text-slate-100">Ready to Collaborate or Hire?</h2>
+                    <p class="text-slate-400 text-sm leading-relaxed max-w-xl">
+                        I am currently finalizing my 5th-year Cybersecurity Engineering degree and seeking full-time roles in Penetration Testing, Application Security, or SecOps.
+                    </p>
+
+                    <div class="flex flex-wrap gap-4 pt-2 font-mono text-xs">
+                        <a href="mailto:alex.cybersec@example.com" class="px-4 py-2.5 rounded bg-emerald-500 text-slate-950 font-bold hover:bg-emerald-400 transition-colors flex items-center gap-2">
+                            <i class="fa-solid fa-envelope"></i>
+                            <span>alex.cybersec@example.com</span>
+                        </a>
+                        <button onclick="openPGPModal()" class="px-4 py-2.5 rounded bg-slate-900 border border-slate-700 text-slate-200 hover:border-cyber-cyan transition-colors flex items-center gap-2">
+                            <i class="fa-solid fa-key text-cyber-cyan"></i>
+                            <span>View Public PGP Key</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Social Links Grid -->
+                <div class="lg:col-span-5 grid grid-cols-2 gap-3 font-mono text-xs">
+                    <a href="https://github.com" target="_blank" class="p-3 bg-slate-900/80 border border-slate-800 rounded hover:border-cyber-emerald transition-colors flex items-center gap-3">
+                        <i class="fa-brands fa-github text-lg text-slate-300"></i>
+                        <div>
+                            <div class="text-slate-200 font-bold">GitHub</div>
+                            <div class="text-[10px] text-slate-500">@security-engineer</div>
+                        </div>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" class="p-3 bg-slate-900/80 border border-slate-800 rounded hover:border-cyber-cyan transition-colors flex items-center gap-3">
+                        <i class="fa-brands fa-linkedin text-lg text-cyber-cyan"></i>
+                        <div>
+                            <div class="text-slate-200 font-bold">LinkedIn</div>
+                            <div class="text-[10px] text-slate-500">In/sec-engineer</div>
+                        </div>
+                    </a>
+                    <a href="https://tryhackme.com" target="_blank" class="p-3 bg-slate-900/80 border border-slate-800 rounded hover:border-red-400 transition-colors flex items-center gap-3">
+                        <i class="fa-solid fa-flag text-lg text-red-400"></i>
+                        <div>
+                            <div class="text-slate-200 font-bold">TryHackMe</div>
+                            <div class="text-[10px] text-slate-500">Top 1% Rank</div>
+                        </div>
+                    </a>
+                    <a href="https://hackthebox.com" target="_blank" class="p-3 bg-slate-900/80 border border-slate-800 rounded hover:border-emerald-400 transition-colors flex items-center gap-3">
+                        <i class="fa-solid fa-cube text-lg text-emerald-400"></i>
+                        <div>
+                            <div class="text-slate-200 font-bold">HackTheBox</div>
+                            <div class="text-[10px] text-slate-500">Pro Hacker Rank</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="border-t border-cyber-border py-6 bg-cyber-dark text-slate-500 text-xs font-mono">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+                © 2026 Cybersecurity Engineering Portfolio • Signed & Fingerprinted.
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="text-emerald-500"><i class="fa-solid fa-circle text-[8px] mr-1"></i> Systems Operational</span>
+                <span>Class of 2026</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Generic Info / Writeup Modal -->
+    <div id="info-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-cyber-card border border-cyber-border rounded-xl max-w-xl w-full p-6 shadow-2xl relative space-y-4">
+            <div class="flex items-center justify-between border-b border-cyber-border pb-3">
+                <h3 id="modal-title" class="font-mono font-bold text-slate-100 text-lg"></h3>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-slate-100 text-lg">&times;</button>
+            </div>
+            <pre id="modal-body" class="font-mono text-xs text-slate-300 bg-slate-950 p-4 rounded border border-slate-800 whitespace-pre-wrap leading-relaxed max-h-80 overflow-y-auto"></pre>
+            <div class="flex justify-end">
+                <button onclick="closeModal()" class="px-4 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded font-mono text-xs">Close Window</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PGP Key Modal -->
+    <div id="pgp-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-cyber-card border border-cyber-border rounded-xl max-w-xl w-full p-6 shadow-2xl relative space-y-4">
+            <div class="flex items-center justify-between border-b border-cyber-border pb-3">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-key text-cyber-emerald"></i>
+                    <h3 class="font-mono font-bold text-slate-100 text-sm sm:text-base">Public PGP Key Fingerprint</h3>
+                </div>
+                <button onclick="closePGPModal()" class="text-slate-400 hover:text-slate-100 text-lg">&times;</button>
+            </div>
+            <p class="text-xs text-slate-400 font-mono">Fingerprint: <span class="text-cyber-cyan">4A92 B3C8 910F E82D 7721 0293 881B C901</span></p>
+            <textarea readonly id="pgp-text" class="w-full h-44 bg-slate-950 text-emerald-400 font-mono text-[11px] p-3 rounded border border-slate-800 focus:outline-none">
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: OpenPGP v2.1.0
+
+mQENBF9x89ABC38190X...
+... (Cybersecurity Student Public Key) ...
+eK3M2n9L1/82A1B0C9D8E7F6A5B4C3D2E1
+-----END PGP PUBLIC KEY BLOCK-----</textarea>
+            <div class="flex justify-between items-center pt-2">
+                <span id="copy-status" class="text-xs font-mono text-cyber-emerald opacity-0 transition-opacity">Key copied to clipboard!</span>
+                <div class="flex space-x-2">
+                    <button onclick="copyPGPKey()" class="px-3 py-1.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 rounded font-mono text-xs font-bold transition-colors">
+                        Copy Key
+                    </button>
+                    <button onclick="closePGPModal()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded font-mono text-xs">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Terminal Command Processor
+        const terminalOutput = document.getElementById('terminal-output');
+        const terminalInput = document.getElementById('terminal-input');
+
+        const commandHistory = {
+            'help': `Available Commands:
+- <span class="text-cyber-emerald font-bold">whoami</span>       : Display student identity & degree
+- <span class="text-cyber-emerald font-bold">skills</span>       : List offensive & defensive stack
+- <span class="text-cyber-emerald font-bold">ctf</span>          : View recent CTF & hackathon ranks
+- <span class="text-cyber-emerald font-bold">certs</span>        : Show active security credentials
+- <span class="text-cyber-emerald font-bold">contact</span>      : Show contact email & secure channels
+- <span class="text-cyber-emerald font-bold">clear</span>        : Clear terminal output screen`,
+
+            'whoami': `<span class="text-cyber-cyan">5th-Year Cybersecurity Engineering Student</span>
+Graduating: June 2026
+Focus: Offensive Security, Vulnerability Research, DevSecOps, Enterprise AD Penetration Testing.`,
+
+            'skills': `<span class="text-emerald-400">Offensive:</span> Burp Suite Pro, Metasploit, Nmap, BloodHound, SQLmap, Hashcat
+<span class="text-cyan-400">Defensive:</span> Splunk, Elastic SIEM, Sysmon, Wireshark, OPNsense
+<span class="text-amber-400">Languages:</span> Python 3, Bash, C/C++, Go, SQL`,
+
+            'ctf': `<span class="text-cyber-emerald">TryHackMe:</span> Ranked in Top 1% globally
+<span class="text-cyber-cyan">HackTheBox:</span> Pro Hacker Level (14+ User/Root Flags)
+<span class="text-amber-400">National Cyber League (NCL):</span> Top 5% Individual Rank`,
+
+            'certs': `[✔] CompTIA Security+ (SY0-601)
+[✔] Certified Ethical Hacker (CEH v12)
+[⏳] eJPT - eLearnSecurity Junior Penetration Tester (In Progress)`,
+
+            'contact': `Email: alex.cybersec@example.com
+PGP Key: Click the button in the header or footer
+LinkedIn: linkedin.com/in/sec-engineer`
+        };
+
+        function handleCommand(event) {
+            event.preventDefault();
+            const rawCmd = terminalInput.value.trim();
+            const cmd = rawCmd.toLowerCase();
+            
+            if (cmd === '') return;
+
+            // Print Command Line
+            const cmdLine = document.createElement('div');
+            cmdLine.innerHTML = `<span class="text-cyber-emerald font-bold">&gt; ${escapeHtml(rawCmd)}</span>`;
+            terminalOutput.appendChild(cmdLine);
+
+            if (cmd === 'clear') {
+                terminalOutput.innerHTML = '';
+            } else if (commandHistory[cmd]) {
+                const resLine = document.createElement('div');
+                resLine.className = 'text-slate-300 ml-2 font-mono text-xs';
+                resLine.innerHTML = commandHistory[cmd];
+                terminalOutput.appendChild(resLine);
+            } else {
+                const errLine = document.createElement('div');
+                errLine.className = 'text-red-400 ml-2 font-mono text-xs';
+                errLine.innerHTML = `zsh: command not found: ${escapeHtml(rawCmd)}. Type <span class="text-cyber-cyan font-bold">'help'</span> for assistance.`;
+                terminalOutput.appendChild(errLine);
+            }
+
+            terminalInput.value = '';
+            
+            // Auto scroll to bottom
+            const terminalBody = document.getElementById('terminal-body');
+            terminalBody.scrollTop = terminalBody.scrollHeight;
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        // Modal Controllers
+        function openModal(title, text) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-body').innerText = text;
+            document.getElementById('info-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('info-modal').classList.add('hidden');
+        }
+
+        function openWriteupModal(title, text) {
+            openModal('Writeup: ' + title, text);
+        }
+
+        function openPGPModal() {
+            document.getElementById('pgp-modal').classList.remove('hidden');
+        }
+
+        function closePGPModal() {
+            document.getElementById('pgp-modal').classList.add('hidden');
+            document.getElementById('copy-status').classList.add('opacity-0');
+        }
+
+        function copyPGPKey() {
+            const copyText = document.getElementById("pgp-text");
+            copyText.select();
+            document.execCommand("copy");
+
+            const status = document.getElementById('copy-status');
+            status.classList.remove('opacity-0');
+            setTimeout(() => {
+                status.classList.add('opacity-0');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
